@@ -1,0 +1,189 @@
+# abbreviations and acronyms
+ack
+aix
+algo
+ansi
+api
+apis
+arg
+args
+ascii
+ast
+async
+attr
+attrib
+attrs
+bcc
+bool
+bps
+bsd
+bst
+btree        # just in case would expect capitalisation to split this but ...
+buf
+cc
+cert
+clazz        # ugly but used
+cldc         # connected limited device configuration (J2ME)
+config
+corba
+crc
+css
+ctor
+ctrl
+csv
+cvs
+cmyk
+cymk         # error -- but has been seen
+decl
+desc         #  used a lot for description or descriptor
+descr        #  used a lot for descriptor
+dir
+dirs
+dnd
+dns
+dom
+dos
+drda         # distributed relational database architecture
+dst
+dtd
+ejb
+env
+eof
+eol
+eols         # ugly but is used
+est
+eval
+expr
+exslt
+freq
+ftp
+fqn
+func         # not entirely happy with this but ...
+gif
+giop         # General inter-ORB protocol
+gmt
+gui
+guid
+gzip
+hsv
+html
+http
+id
+iface
+iframe
+img
+imgs
+init
+imap
+impl         #  exemplary use is as a suffix to class names
+io
+ip
+ipsec
+jaxb
+jaxp
+jaxws
+jboss
+jdbc
+jndi
+jnlp
+jpeg
+jpg
+jre
+jsp
+json
+junit
+jvm
+kbps
+klass        # ugly but it is used
+lang
+ldap
+lhs
+lib
+mac
+max
+mbps
+midp         # mobile information device profile (J2ME)
+millis       # a Javaism that has spread
+min
+mips
+mpeg
+mpg
+msg
+nist        # National Institute of Standards and Technology
+nntp
+nntps
+nt          # :-)
+ntfs        # :-)
+num
+obj
+objs
+odbc     # open database connectivity
+ok
+omg      # object management group! As any fule kno.
+osgi
+os
+param
+params
+parm     # don't like these two but they are used
+parms
+pdf
+pkg
+pkgs
+png
+pop
+pref
+proc
+proto
+rcs
+regex
+regexp
+rfc
+rgb
+rhs
+rmi
+rmic
+rx
+sax
+sftp
+sgml
+sha
+smtp
+snmp
+sparc
+src
+sql
+ssh
+ssl
+stderr
+stdin
+stdout
+struct
+suid
+syn
+sync
+sys
+tcp
+tls
+tx
+uid
+ui
+uint
+ulong
+uri
+url
+urls
+ushort
+utc
+utf
+util
+utils
+uu
+uuid
+vms
+wadl 
+wsdl
+xhtml
+xml
+xref
+xsl
+xslt
