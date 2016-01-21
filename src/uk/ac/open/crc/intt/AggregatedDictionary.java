@@ -92,6 +92,7 @@ class AggregatedDictionary implements Dictionary {
     public synchronized int percentageKnown ( List<String> tokens ) {
         int knownCount = 0;
 
+        // explore functional alternatives
         for ( String token : tokens ) {
             if ( this.isWord( token ) == true ) {
                 knownCount++;
