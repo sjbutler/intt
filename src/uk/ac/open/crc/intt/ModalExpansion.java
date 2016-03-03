@@ -74,7 +74,7 @@ class ModalExpansion {
         }
         catch ( IOException ioEx ) {
             LOGGER.error(
-                    "problem encountered instantiating Modal Expansion component:{}",
+                    "problem encountered instantiating Modal Expansion component: {}",
                     ioEx.getMessage() );
         }
     }

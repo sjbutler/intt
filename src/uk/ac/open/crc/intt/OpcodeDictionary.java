@@ -37,8 +37,8 @@ class OpcodeDictionary implements Dictionary {
      */
     public OpcodeDictionary ( List<String> opcodes ) {
         this.opcodeSet = new HashSet<>();
-        opcodes.stream().forEach( (abbreviation) -> {
-            this.opcodeSet.add( abbreviation.toLowerCase() );
+        opcodes.stream().forEach( (opcode) -> {
+            this.opcodeSet.add( opcode.toLowerCase() );
         } );
     }
 

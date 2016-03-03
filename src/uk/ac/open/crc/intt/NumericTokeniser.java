@@ -283,6 +283,7 @@ class NumericTokeniser {
         
         return tokens;
     }
+    
     // the contract is that the argument must match
     // the regular expression "^[a-zA-Z]+(2|4)[a-zA-Z]+$"
     private List<String> textSpeakSplit( String fragment ) {

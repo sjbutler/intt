@@ -86,7 +86,7 @@ public final class IdentifierNameTokeniser {
      *
      * @param identifierName an identifier name
      * 
-     * @return an array of tokens
+     * @return a list of tokens
      */
     public synchronized List<String> tokenise(String identifierName) {
 
