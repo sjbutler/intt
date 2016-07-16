@@ -34,10 +34,10 @@ If you use intt in academic research please cite the following paper:
    Simon Butler, Michel Wermelinger, Yijun Yu, and Helen Sharp 
    ‘Improving the tokenisation of identifier names’, 
    Proceedings of the 25th European Conference on Object-Oriented Programming, 
-   25–29 Jul 2011, Lancaster, UK.
+   LNCS 6813, Springer Berlin/Heidelberg, 25–29 Jul 2011, Lancaster, UK.
 
 The open source version of intt is based on the version described in the 
-above paper, but has a range of enhancements including improved dictionaries.
+above paper and has a range of enhancements including improved dictionaries.
 
 ## Caveat
 
