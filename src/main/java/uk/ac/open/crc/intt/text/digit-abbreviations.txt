@@ -1,0 +1,77 @@
+# digit abbreviations
+2d
+3d
+1to1     # simple mapping
+2of5     # barcode format
+2of7     # barcode format
+3of9     # barcode format
+amd64
+base64
+c14n     # canonicalisation
+#ejb3 -- need to handle overlapping abbreviations before uncommenting
+ext2
+ext3
+ext4
+fat16
+fat32
+gdk2
+gtk2
+gtk3
+http1
+http10
+http11
+i18n
+i386
+i486
+i586
+i686
+ie6      # comes up in some web oriented apps
+ie7
+ie8
+ie9
+ip4
+ip6
+ipv4
+ipv6
+iso8601  # iso time/date standard
+jdk11
+jdk12
+jdk13
+jdk14
+jdk15
+jdk16
+jdk17
+j2ee
+j2me
+j2se
+junit3
+junit4
+kde2
+kde3
+kde4
+l10n
+log4j
+md5
+mp3
+mp4
+oc4j     # oracle containers for Java EE
+perl5
+perl6
+pop3
+qt3
+qt4qt5
+sha1
+sha256
+soap11
+soap12
+utf8
+utf16
+utf32
+win32
+win95
+win8
+win10
+x11
+x86
+#xpp3 -- need to handle overlapping abbreviations before uncommenting
+w3c
