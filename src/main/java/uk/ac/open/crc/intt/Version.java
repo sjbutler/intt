@@ -23,7 +23,7 @@ package uk.ac.open.crc.intt;
 final class Version {
     private static final String NAME = "intt";
     private static final String MAJOR = "0";
-    private static final String MINOR = "7";
+    private static final String MINOR = "8";
     private static final String PATCH_LEVEL = "0-dev";
     
     static String getNameAndVersion() {

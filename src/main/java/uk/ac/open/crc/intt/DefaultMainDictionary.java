@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2010-2015 The Open University
+ Copyright (C) 2017 Simon Butler
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,8 +19,10 @@ package uk.ac.open.crc.intt;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+
+import uk.ac.open.crc.mdsc.wordlists.Wordlist;
+import uk.ac.open.crc.mdsc.wordlists.Wordlists;
 
 /**
  * Provides a main dictionary for the default configuration.
@@ -33,6 +36,8 @@ class DefaultMainDictionary extends MainDictionary {
      *
      */
     private static DefaultMainDictionary instance = null;
+    
+    private static HashSet<String> WORD_LISTS;
 
     /**
      * Returns the instance of this class.
@@ -41,6 +46,18 @@ class DefaultMainDictionary extends MainDictionary {
      */
     synchronized static DefaultMainDictionary getInstance()  
             throws IOException, FileNotFoundException {
+	if (WORD_LISTS == null) {
+	    WORD_LISTS = new HashSet<>();
+	    WORD_LISTS.addAll( new Wordlist(Wordlists.SCOWL_EN_CA,true).list()); //"/scowl/en_CA" );
+	    WORD_LISTS.addAll( new Wordlist(Wordlists.SCOWL_EN_GB,true).list()); //"/scowl/en_GB" );
+	    WORD_LISTS.addAll( new Wordlist(Wordlists.SCOWL_EN_US,true).list()); //"/scowl/en_US" );
+	    WORD_LISTS.addAll( new Wordlist(Wordlists.SCOWL_HACKER,true).list()); //"/scowl/hacker" );
+	    WORD_LISTS.addAll( new Wordlist(Wordlists.SCOWL_PROPER_NOUNS,true).list()); //"/scowl/proper-nouns" );
+	    WORD_LISTS.addAll( new Wordlist(Wordlists.SCOWL_RUDE,true).list()); //"/scowl/rude" );
+	    WORD_LISTS.addAll( new Wordlist(Wordlists.TECHNICAL,true).list()); //"/technical" );
+	    System.err.println("main dictionary population is: " + WORD_LISTS.size());
+		    
+	}
         if (instance == null) {
             instance = new DefaultMainDictionary();
         }
@@ -48,20 +65,6 @@ class DefaultMainDictionary extends MainDictionary {
         return instance;
     }
 
-    // experimenting with mdsc wordlists
-    private static final List<String> WORD_LISTS;
-    
-    static {
-        WORD_LISTS = new ArrayList<>();
-        WORD_LISTS.add( "/uk/ac/open/crc/mdsc/wordlists/scowl/en_CA" );
-        WORD_LISTS.add( "/uk/ac/open/crc/mdsc/wordlists/scowl/en_GB" );
-        WORD_LISTS.add( "/uk/ac/open/crc/mdsc/wordlists/scowl/en_US" );
-        WORD_LISTS.add( "/uk/ac/open/crc/mdsc/wordlists/scowl/hacker" );
-        WORD_LISTS.add( "/uk/ac/open/crc/mdsc/wordlists/scowl/proper-nouns" );
-        WORD_LISTS.add( "/uk/ac/open/crc/mdsc/wordlists/scowl/rude" );
-        WORD_LISTS.add( "/uk/ac/open/crc/mdsc/wordlists/technical" );
-    }
-    
     // -------------- instance methods and fields ----------
 
     /**
@@ -69,7 +72,6 @@ class DefaultMainDictionary extends MainDictionary {
      */
     private DefaultMainDictionary() throws FileNotFoundException, IOException {
         super( WORD_LISTS, "Default");
-//        super( "wordlist.txt", "Default");
     }
     
 }

@@ -121,7 +121,7 @@ public class WordListReader {
     
     private void read() {
         InputStream inStream = this.getClass().getResourceAsStream( 
-		"/resources/wordlists/" + this.fileName );
+		"/wordlists/" + this.fileName );
         try ( BufferedReader in = new BufferedReader(new InputStreamReader(inStream))) {
             String line;
             

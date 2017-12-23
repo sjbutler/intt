@@ -15,21 +15,21 @@ repositories {
 // metadata for the pom
 group = "uk.org.facetus"
 archivesBaseName = "intt"
-version = "0.8.0-SNAPSHOT"
+version = "0.8.0"
 
 sourceCompatibility = 1.8
 
 dependencies {
     // external dependencies
-    api 'org.slf4j:slf4j-api:1.7.25'
-    api 'org.slf4j:slf4j-jdk14:1.7.25'
-    compile 'uk.org.facetus:mdsc:0.1.1'
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'org.slf4j:slf4j-jdk14:1.7.25'
+    compile 'uk.org.facetus:mdsc:0.2.1'
     compile 'uk.org.facetus:idtk-j:0.5.0'
-    // Use JUnit test framework
+    
     testImplementation 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-library:1.3'
 }
-
+  
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
     from javadoc
@@ -40,6 +40,7 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
+
 artifacts {
     archives javadocJar, sourcesJar
 }
@@ -48,10 +49,12 @@ signing {
     sign configurations.archives
 }
 
-//test {
-//    classpath = project.files(
-//	"$buildDir/libs/"+jar.archiveName,
-//	"$buildDir/classes/test",
-//	configurations.runtime 
-//    )
-//}
+jar {
+  from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+  manifest {
+    attributes(
+      'Class-Path': configurations.compile.collect { it.getName() }.join(' ')
+    )
+  }
+}
+

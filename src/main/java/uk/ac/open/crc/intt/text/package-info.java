@@ -15,10 +15,8 @@
 */
 
 /**
- * Word lists used for some of the default dictionaries and a utility class
- * to read word lists.
+ * A utility class to read word lists. 
  * 
- * @version 0.7.0-dev
  *
  */
 

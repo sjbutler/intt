@@ -535,7 +535,7 @@ public final class IdentifierNameTokeniserFactory {
      *
      * <p>
      * <tt>
-     * Library:name=intt, version=0.6.0<br>
+     * Library:name=intt, version=0.8.0<br>
      * Main-dictionary:name=Default, entries=117089;<br>
      * Abbreviation-dictionary:name=Default, entries=103;<br>
      * Digit-Abbreviation-dictionary:name=Default, entries=50;<br>
@@ -599,8 +599,7 @@ public final class IdentifierNameTokeniserFactory {
                 output.append( ", " );
             }
         }
-        output.append( "}" );
-        output.append( ";" );
+        output.append( "};" );
         output.append( newLine );
 
         output.append( "Recursive-split:" );
