@@ -5,3 +5,5 @@
 gradlew
 /gradle/wrapper/
 
+
+*.jar
