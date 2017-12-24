@@ -7,3 +7,11 @@ gradlew
 
 
 *.jar
+
+gradle/wrapper/gradle-wrapper.jar
+
+gradle/wrapper/gradle-wrapper.jar
+
+gradlew
+
+gradle/wrapper/gradle-wrapper.properties
