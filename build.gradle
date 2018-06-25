@@ -15,7 +15,7 @@ repositories {
 // metadata for the pom
 group = "uk.org.facetus"
 archivesBaseName = "intt"
-version = "0.8.2"
+version = "0.8.3"
 
 sourceCompatibility = 1.8
 
@@ -23,7 +23,7 @@ dependencies {
     // external dependencies
     compile 'org.slf4j:slf4j-api:1.7.25'
     compile 'org.slf4j:slf4j-jdk14:1.7.25'
-    compile 'uk.org.facetus:mdsc:0.2.1'
+    compile 'uk.org.facetus:mdsc:0.2.3'
     compile 'uk.org.facetus:idtk-j:0.5.0'
     
     testImplementation 'junit:junit:4.12'
