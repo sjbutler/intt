@@ -116,7 +116,7 @@ class SingleCaseTokeniser {
                 && identifier.length() > 4 ) {
             // a zero score is inevitable if both ends start with
             // an unknown word
-            LOGGER.info(
+            LOGGER.debug(
                     "no simple split found from ends for: {}. Applying most greedy algorithm.",
                     identifier );
             // SO
@@ -194,7 +194,7 @@ class SingleCaseTokeniser {
                 // tell the user what has happened
                 // so they can appreciate whether there is a genuine 
                 // lack of choice or the algorithm needs a tweak
-                LOGGER.info( "Cannot differentiate between {} and {}", 
+                LOGGER.debug( "Cannot differentiate between {} and {}", 
                         candidateToString( bestForward ), 
                         candidateToString( bestBackward ) );
             }
@@ -395,7 +395,7 @@ class SingleCaseTokeniser {
 
             if ( competingSplits.size() > 1 ) {
                 // now we should be able to split on dictionary scores if necessary
-                LOGGER.info(
+                LOGGER.debug(
                         "Unable to pick best split from {0}",
                         candidatesToString( competingSplits ) );
             }
