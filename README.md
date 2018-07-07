@@ -13,11 +13,11 @@ for tokenising single case strings composed of words and abbreviations.
  
 ## Copyright & Licence
 intt is Copyright (C) 2010-2015 The Open University with improvements 
-Copyright (C) 2017 Simon Butler. intt is released under the terms of 
+Copyright (C) 2017-2018 Simon Butler. intt is released under the terms of 
 the Apache Licence v2.
 
-intt v0.8.3 is available from Maven central. Gradle users should use 
-the line `compile 'uk.org.facetus:intt:0.8.3'`. 
+intt v0.8.7 is available from Maven central. Gradle users should use 
+the line `compile 'uk.org.facetus:intt:0.8.7'`. 
 
 ## Requirements
 ### Java
