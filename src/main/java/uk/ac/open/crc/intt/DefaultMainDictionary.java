@@ -55,8 +55,6 @@ class DefaultMainDictionary extends MainDictionary {
 	    WORD_LISTS.addAll( new Wordlist(Wordlists.SCOWL_PROPER_NOUNS,true).list()); //"/scowl/proper-nouns" );
 	    WORD_LISTS.addAll( new Wordlist(Wordlists.SCOWL_RUDE,true).list()); //"/scowl/rude" );
 	    WORD_LISTS.addAll( new Wordlist(Wordlists.TECHNICAL,true).list()); //"/technical" );
-	    System.err.println("main dictionary population is: " + WORD_LISTS.size());
-		    
 	}
         if (instance == null) {
             instance = new DefaultMainDictionary();
