@@ -534,7 +534,7 @@ public final class IdentifierNameTokeniserFactory {
      * and returns values confirming the status of each major setting.
      *
      * <p>
-     * <tt>
+     * <code>
      * Library:name=intt, version=0.8.0<br>
      * Main-dictionary:name=Default, entries=117089;<br>
      * Abbreviation-dictionary:name=Default, entries=103;<br>
@@ -546,7 +546,7 @@ public final class IdentifierNameTokeniserFactory {
      * Recursive-split:false;<br>
      * Expand-modals: false;<br>
      * Opcode-Dictionary:name=Empty, entries=0;<br>
-     * </tt>
+     * </code>
      * </p>
      *
      * @return a formatted {@code String} containing the current state
