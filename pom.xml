@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>uk.org.facetus</groupId>
   <artifactId>intt</artifactId>
-  <version>0.8.7</version>
+  <version>0.8.8-SNAPSHOT</version>
   <name>intt</name>
   <description>A library for tokenising Java identifier names</description>
   <url>https://github.com/sjbutler/intt</url>
@@ -35,12 +35,6 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-jdk14</artifactId>
-      <version>1.7.24</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>uk.org.facetus</groupId>
       <artifactId>mdsc</artifactId>
       <version>0.2.3</version>
@@ -49,7 +43,7 @@
     <dependency>
       <groupId>uk.org.facetus</groupId>
       <artifactId>idtk-j</artifactId>
-      <version>0.5.4</version>
+      <version>0.5.5</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -59,10 +53,15 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>or.hamcrest</groupId>
+      <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-library</artifactId>
       <version>1.3</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
+    <properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+   </properties>
 </project>
