@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2010-2015 The Open University
+ Copyright (C) 2019 Simon Butler
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -35,7 +36,7 @@ class DefaultPrefixDictionary extends PrefixDictionary {
      */
     static DefaultPrefixDictionary getInstance( AggregatedDictionary aggregatedDictionary ) {
         if (instance == null) {
-            WordListReader reader = new WordListReader( "samurai-suffixes.txt" );
+            WordListReader reader = new WordListReader( "samurai-prefixes.txt" );
             instance = new DefaultPrefixDictionary( 
                     reader.asLowerCaseList(), 
                     aggregatedDictionary );
@@ -49,7 +50,7 @@ class DefaultPrefixDictionary extends PrefixDictionary {
     private DefaultPrefixDictionary( 
             List<String> prefixes, 
             AggregatedDictionary aggregatedDictionary ) {
-        super( prefixes, aggregatedDictionary, "Default" );
+        super( prefixes, aggregatedDictionary, "prefix" );
     }
 
 }

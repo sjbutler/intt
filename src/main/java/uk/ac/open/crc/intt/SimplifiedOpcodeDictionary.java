@@ -48,7 +48,7 @@ class SimplifiedOpcodeDictionary extends OpcodeDictionary {
     
     
     private SimplifiedOpcodeDictionary( List<String> opcodes ) {
-        super( opcodes, "Simplified" );
+        super( opcodes, "simplified_opcode" );
     }
     
 }

@@ -155,13 +155,48 @@ public final class IdentifierNameTokeniser {
     }
 
     /**
+     * Tokenises an identifier name, returning a {@code List} of tokens each of 
+     * which lists the word lists in which the token was found. 
+     *
+     * @param identifierName an identifier name
+     * 
+     * @return a list of tokens each with 0..n word lists in which the token 
+     * was found
+     */
+    public synchronized List<TaggedToken> tokeniseWithOrigins( String identifierName ) {
+        return tagTokens( tokenise( identifierName ) ); 
+    }
+    
+    /**
      * Undertakes a naive or conservative tokenisation using separator 
      * characters and LCUC boundaries.
      * @param identifierName a name
      * @return a list of tokens resulting from conservative tokenisation 
      */
-    public synchronized List<String> naiveTokensation( String identifierName ) {
+    public synchronized List<String> naiveTokenisation( String identifierName ) {
         return this.basicTokeniser.naiveTokensation( identifierName );
+    }
+    
+    /**
+     * Undertakes a naive or conservative tokenisation using separator 
+     * characters and LCUC boundaries.
+     * @param identifierName a name
+     * @return a list of tokens each with a list of the 0..n word lists in which 
+     * they are found
+     */
+    public synchronized List<TaggedToken> naiveTokenisationWithOrigins( String identifierName ) {
+        return tagTokens( naiveTokenisation( identifierName ) ); 
+    }
+
+    private synchronized List<TaggedToken> tagTokens( List<String> tokenList ) {
+        List<TaggedToken> outputList = new ArrayList<>();
+        
+        tokenList.forEach(t -> {
+            TaggedToken tt = new TaggedToken( t );
+            outputList.add( tt );
+            this.aggregatedDictionary.tags( t ).forEach( d -> tt.add( d ));  // review this as there seems to be duplication
+        });
+        return outputList;
     }
     
     // input is a tokenised identifier name.

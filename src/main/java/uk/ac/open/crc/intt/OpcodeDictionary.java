@@ -1,5 +1,6 @@
 /*
     Copyright (C) 2010-2015 The Open University
+    Copyright (C) 2019 Simon Butler
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -16,6 +17,7 @@
 
 package uk.ac.open.crc.intt;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -67,6 +69,17 @@ class OpcodeDictionary implements Dictionary {
         return opcodeSet.contains( name.toLowerCase() );
     }
 
+     @Override
+    public List<String> tags( String word ) {
+        List<String> tags = new ArrayList<>();
+        
+        if ( isWord( word ) ) {
+            tags.add( "opcode" );
+        }
+        
+        return tags;
+    }
+    
     /**
      * Provides a descriptive string containing the name of the dictionary
      * and the number of entries.

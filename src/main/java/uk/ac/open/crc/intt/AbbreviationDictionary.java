@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2010-2015 The Open University
+ Copyright (C) 2019 Simon Butler
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -17,6 +18,7 @@
 
 package uk.ac.open.crc.intt;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -28,7 +30,7 @@ class AbbreviationDictionary implements Dictionary {
 
     private HashSet<String> abbreviationSet;
 
-    String name = "Abbreviation Dictionary";
+    String name = "abbr";
 
     /**
      * Builds a new abbreviation dictionary from the list of abbreviations
@@ -67,6 +69,17 @@ class AbbreviationDictionary implements Dictionary {
         return abbreviationSet.contains( s.toLowerCase() );
     }
 
+    @Override
+    public List<String> tags( String word ) {
+        List<String> tags = new ArrayList<>();
+        
+        if ( isWord( word ) ) {
+            tags.add( this.name );
+        }
+        
+        return tags;
+    }
+    
     /**
      * A simple string representation of the object's state.
      * @return a descriptive string containing the name of the dictionary and 

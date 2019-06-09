@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2010-2015 The Open University
+ Copyright (C) 2019 Simon Butler
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -45,7 +46,7 @@ class DefaultDigitAbbreviationDictionary extends DigitAbbreviationDictionary {
 
 
     private DefaultDigitAbbreviationDictionary( List<String> abbreviations ) {
-        super( abbreviations, "Default" );
+        super( abbreviations, "digit_abbr" );
     }
 
 }

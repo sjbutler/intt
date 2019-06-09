@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2010-2015 The Open University
+ Copyright (C) 2019 Simon Butler
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -16,6 +17,8 @@
 
 package uk.ac.open.crc.intt;
 
+import java.util.List;
+
 /**
  * An interface for a dictionary.
  *
@@ -28,4 +31,13 @@ interface Dictionary {
      * @return {@code true} if the word is a dictionary entry
      */
     public boolean isWord(String word);
+    
+    /**
+     * Provides a list of the word lists within the dictionary in which the word
+     * was found. 
+     * @param word
+     * @return a list of tags for word lists the word was found in, or an empty 
+     * list if the word was not found
+     */
+    public List<String> tags( String word );
 }

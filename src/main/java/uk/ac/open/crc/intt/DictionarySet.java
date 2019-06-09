@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2010-2015 The Open University
+ Copyright (C) 2019 Simon Butler
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -34,6 +35,12 @@ class DictionarySet {
     private ProjectVocabulary projectVocabulary;
     private SuffixDictionary suffixDictionary;
 
+    // the following are common and not user configurable.
+    {
+        this.abbreviationDictionary = DefaultAbbreviationDictionary.getInstance();
+        this.digitAbbreviationDictionary = DefaultDigitAbbreviationDictionary.getInstance();
+        this.projectVocabulary = new ProjectVocabulary();        
+   }
 
     /**
      * Creates a new dictionary set populated with the default dictionaries.
@@ -41,9 +48,8 @@ class DictionarySet {
      * @throws FileNotFoundException thrown if the input word list file is not found
      */
     DictionarySet() throws IOException, FileNotFoundException {
-        this.abbreviationDictionary = DefaultAbbreviationDictionary.getInstance();
-        this.digitAbbreviationDictionary = DefaultDigitAbbreviationDictionary.getInstance();
         this.mainDictionary = DefaultMainDictionary.getInstance();
+    
         this.aggregatedDictionary = new AggregatedDictionary(
                 this.abbreviationDictionary,
                 this.digitAbbreviationDictionary,
@@ -52,9 +58,42 @@ class DictionarySet {
                 DefaultPrefixDictionary.getInstance(this.aggregatedDictionary);
         this.suffixDictionary = 
                 DefaultSuffixDictionary.getinstance(this.aggregatedDictionary);
-        this.projectVocabulary = new ProjectVocabulary();
     }
 
+    /**
+     * 
+     * Creates a new dictionary set populated with the specified dictionaries.
+     * @param dc
+     * @throws IOException if a problem is encountered reading the dictionary
+     * @throws FileNotFoundException thrown if the input word list file is not found
+     */
+    DictionarySet( final DictionaryConfiguration dc ) throws IOException, FileNotFoundException {
+        
+        switch ( dc ) {
+            case DEFAULT:
+                this.mainDictionary = DefaultMainDictionary.getInstance();
+                break;
+            case GERMAN: 
+                this.mainDictionary = GermanMainDictionary.getInstance();
+                break;
+            case COMBINED:
+                this.mainDictionary = CombinedMainDictionary.getInstance();
+                break;
+            default:
+                throw new IllegalStateException( "Unrecognised configuration requested" );
+        }
+        this.aggregatedDictionary = new AggregatedDictionary(
+                this.abbreviationDictionary,
+                this.digitAbbreviationDictionary,
+                this.mainDictionary);
+        this.prefixDictionary = 
+                DefaultPrefixDictionary.getInstance(this.aggregatedDictionary);
+        this.suffixDictionary = 
+                DefaultSuffixDictionary.getinstance(this.aggregatedDictionary);
+    }
+    
+    
+    
     /**
      * Registers a different abbreviation dictionary.
      * 

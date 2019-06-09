@@ -50,7 +50,7 @@ class DefaultSuffixDictionary extends SuffixDictionary {
     private DefaultSuffixDictionary( 
             List<String> suffixes, 
             AggregatedDictionary aggregatedDictionary) {
-        super( suffixes, aggregatedDictionary, "Default" );
+        super( suffixes, aggregatedDictionary, "suffix" );
     }
     
 }

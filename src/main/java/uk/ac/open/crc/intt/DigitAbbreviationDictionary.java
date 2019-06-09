@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2010-2015 The Open University
+ Copyright (C) 2019 Simon Butler
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -68,7 +69,19 @@ class DigitAbbreviationDictionary implements Dictionary {
     public synchronized boolean isWord ( String token ) {
         return this.abbreviationSet.contains( token.toLowerCase() );
     }
-
+    
+    @Override
+    public List<String> tags( String word ) {
+        List<String> tags = new ArrayList<>();
+        
+        if ( isWord( word ) ) {
+            tags.add( "digit_abbr" );
+        }
+        
+        return tags;
+    }
+    
+    
     // REVIEW AND REVISE
     // contains the assumption that more than one digit abbreviation 
     // cannot start from the same character.

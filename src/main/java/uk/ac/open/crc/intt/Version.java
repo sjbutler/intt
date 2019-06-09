@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2010-2015 The Open University
+ Copyright (C) 2019 Simon Butler 
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -24,10 +25,10 @@ final class Version {
     private static final String NAME = "intt";
     private static final String MAJOR = "0";
     private static final String MINOR = "8";
-    private static final String PATCH_LEVEL = "0-dev";
+    private static final String PATCH_LEVEL = "8-dev";
     
     static String getNameAndVersion() {
-        return getName() + " " + getVersion();
+        return String.format( "%s %s", getName(), getVersion() );
     }
     
     static String getName() {

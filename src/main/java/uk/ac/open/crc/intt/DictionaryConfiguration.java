@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Simon Butler.
+ * Copyright (C) 2019 Simon Butler
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.open.crc.intt;
 
 /**
- * Implements test for the wordlists stored in the jar file to ensure that they
- * can be loaded. Accordingly, the tests are minimal.
+ * A set of {@code DictionarySet} configurations for intt.
  * 
  */
-public class WordlistsTest {
-
+public enum DictionaryConfiguration {
+    DEFAULT ( "default" ),
+    GERMAN ( "german" ),
+    COMBINED ( "combined" );
+    
+    private String id;
+    DictionaryConfiguration( String id ) {
+        this.id = id;
+    }
+    
+    public String identity() {
+        return this.id;
+    }
+    
 }

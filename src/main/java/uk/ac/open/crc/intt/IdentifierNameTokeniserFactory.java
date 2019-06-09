@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2010-2015 The Open University
+ Copyright (C) 2019 Simon Butler
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -20,8 +21,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 // Review
 /**
@@ -40,7 +39,7 @@ import org.slf4j.LoggerFactory;
  * (up to size 80) for English with American and Canadian spelling variants
  * (<a href="http://wordlist.sourceforge.net/scowl-readme">http://wordlist.sourceforge.net/scowl-readme</a>),
  * with an additional list of 160 computing terms and Java
- * neologisms. The wordlists used are part of the mdsc library which is a 
+ * neologisms. The word lists used are part of the mdsc library which is a 
  * dependency of intt and can be found at 
  * <a href="https://github.com/sjbutler/mdsc">https://github.com/sjbutler/mdsc</a>.</li>
  * <li>A list of 189 (common) computing abbreviations and acronyms.</li>
@@ -119,9 +118,6 @@ public final class IdentifierNameTokeniserFactory {
 
     private int projectVocabularyThreshold = -1;
 
-    private static final Logger LOGGER
-            = LoggerFactory.getLogger( IdentifierNameTokeniserFactory.class );
-
     private boolean recursiveSplit = false;
 
     private boolean expandModals = false;
@@ -145,9 +141,36 @@ public final class IdentifierNameTokeniserFactory {
         }
         catch ( IOException ioEx ) {
             ioEx.printStackTrace( System.err );
-            LOGGER.error( "Unable to instantiate the default main dictionary." );
             throw new IllegalStateException( 
                     "Unable to instantiate the default main dictionary.", ioEx );
+        }
+    }
+
+    /**
+     * Creates an instance of {@code IdentifierNameTokeniserFactory}.
+     *
+     * The default state is:
+     * <ul>
+     * <li>Dictionaries - the default set</li>
+     * <li>Separators - '$' and '_'</li>
+     * <li>Project vocabulary - empty, and disabled.</li>
+     * </ul>
+     *
+     * @param dc a {@code DictionaryConfiguration}
+     * @throws IllegalStateException if the default main dictionary cannot be
+     * created. This is most likely the result of a problem with the jar file.
+     */
+    public IdentifierNameTokeniserFactory ( DictionaryConfiguration dc ) {
+        try {
+            this.dictionarySet = new DictionarySet( dc );
+        }
+        catch ( IOException ioEx ) {
+            ioEx.printStackTrace( System.err );
+            throw new IllegalStateException( 
+                    String.format( 
+                            "Unable to instantiate the \'%s\' dictionary.", 
+                            dc.identity() ), 
+                    ioEx );
         }
     }
 

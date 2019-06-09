@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2010-2015 The Open University
+ Copyright (C) 2019 Simon Butler
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -16,6 +17,7 @@
 
 package uk.ac.open.crc.intt;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -104,6 +106,17 @@ class PrefixDictionary implements AffixDictionary {
         return this.prefixSet.contains( token.toLowerCase() );
     }
 
+    @Override
+    public List<String> tags( String word ) {
+        List<String> tags = new ArrayList<>();
+        
+        if ( isWord( word ) ) {
+            tags.add( "prefix" );
+        }
+        
+        return tags;
+    }
+    
     /** 
      * Recovers the length of the longest prefix in the dictionary.
      * @return the length of the longest entry

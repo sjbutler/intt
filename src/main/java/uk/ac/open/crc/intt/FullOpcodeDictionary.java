@@ -43,7 +43,7 @@ class FullOpcodeDictionary extends OpcodeDictionary {
     
     
     private FullOpcodeDictionary( List<String> opcodes ) {
-        super( opcodes, "Full" );
+        super( opcodes, "full_opcode" );
     }
     
 }

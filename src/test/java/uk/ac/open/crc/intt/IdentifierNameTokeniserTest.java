@@ -31,16 +31,49 @@ import static org.hamcrest.Matchers.*;
  */
 public class IdentifierNameTokeniserTest {
 
-    private static IdentifierNameTokeniser tokeniser;    
+    private static IdentifierNameTokeniser defaultTokeniser;    
+    private static IdentifierNameTokeniser combinedTokeniser;    
+    private static IdentifierNameTokeniser germanTokeniser;    
     
     @BeforeClass
     public static void setUp() {
-	tokeniser = new IdentifierNameTokeniserFactory().create();
+	defaultTokeniser = new IdentifierNameTokeniserFactory().create();
+        combinedTokeniser = new IdentifierNameTokeniserFactory(DictionaryConfiguration.COMBINED).create();
+        germanTokeniser = new IdentifierNameTokeniserFactory(DictionaryConfiguration.GERMAN).create();
     }
     
     @Test
     public void twoTokenTest() {
-	List<String> tokens = tokeniser.tokenise( "somethingSimple");
+	List<String> tokens = defaultTokeniser.tokenise( "somethingSimple");
+	assertThat("Null token list returned by tokeniser", 
+		tokens, 
+		notNullValue());
+	assertThat("Returned token list is empty",
+		tokens, 
+		not(empty()));
+	assertThat("Returned token list does not have two members", 
+		tokens, 
+		hasSize(2));
+    }
+    
+    @Test
+    public void combinedTwoTokenTest() {
+	List<String> tokens = combinedTokeniser.tokenise( "somethingSimple");
+	assertThat("Null token list returned by tokeniser", 
+		tokens, 
+		notNullValue());
+	assertThat("Returned token list is empty",
+		tokens, 
+		not(empty()));
+	assertThat("Returned token list does not have two members", 
+		tokens, 
+		hasSize(2));
+    }
+    
+    
+    @Test
+    public void germanTwoTokenTest() {
+	List<String> tokens = germanTokeniser.tokenise( "etwasEinfaches");
 	assertThat("Null token list returned by tokeniser", 
 		tokens, 
 		notNullValue());

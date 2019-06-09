@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2010-2015 The Open University
+ Copyright (C) 2019 Simon Butler
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -16,6 +17,7 @@
 
 package uk.ac.open.crc.intt;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,6 +71,16 @@ class AggregatedDictionary implements Dictionary {
                 || this.digitAbbreviations.isWord( token ) );
     }
 
+    @Override
+    public List<String> tags( String word ) {
+        List<String> tags = new ArrayList<>();
+        tags.addAll( this.abbreviations.tags(word) );
+        tags.addAll( this.digitAbbreviations.tags(word) );
+        tags.addAll( this.words.tags(word) );
+        return tags;
+    }
+    
+    
     // Needs renaming!? There must be a more appropriate name
     /**
      * Checks if all the strings in a list can be found in the dictionaries.
@@ -98,8 +110,14 @@ class AggregatedDictionary implements Dictionary {
                 knownCount++;
             }
         }
+        
+//        long knownCount = tokens
+//            .stream()
+//            .filter(t -> this.isWord( t ))
+//            .count();
 
         return (int) ( 100 * knownCount / tokens.size() );
     }
 
+    
 }

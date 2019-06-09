@@ -16,6 +16,7 @@
 
 package uk.ac.open.crc.intt;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -68,6 +69,16 @@ class ProjectVocabulary implements Dictionary {
         return this.vocabularySet.contains( token.toLowerCase() );
     }
 
+    @Override
+    public List<String> tags( String word ) {
+        List<String> tags = new ArrayList<>();
+        if (isWord( word )) {
+            tags.add( "project" );
+        }
+        return tags;
+    }
+    
+    
     /**
      * Reports the percentage of tokens in the supplied list that are found in 
      * the vocabulary.
