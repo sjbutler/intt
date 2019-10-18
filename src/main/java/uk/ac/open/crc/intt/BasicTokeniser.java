@@ -17,8 +17,12 @@
 package uk.ac.open.crc.intt;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,24 +35,27 @@ class BasicTokeniser {
 
     private final ArrayList<String> words;
 
-    // internal flag used to indicate whether a digit or two have been found
-    @Deprecated
-    private boolean needsOracle;
-
-    // the following stores data in the form (start, finish, start, ...)
-    private final ArrayList<Integer> boundaries;
-
     private final AggregatedDictionary aggregatedDictionary;
 
     private final DigitAbbreviationDictionary digitAbbreviationDictionary;
+
     private final AbbreviationDictionary abbreviationDicitonary;
 
     private final NumericTokeniser numericTokeniser;
 
-    private final HashSet<Integer> separatorCharactersSet;
+    private final HashSet<String> separatorCharactersSet;
+    
+    private static final Set<String> escapableCharacters;
+    
+    static {
+        escapableCharacters = new HashSet<>();
+        Collections.addAll(escapableCharacters, "<", "(", "[", "{", "\\", "^", "-", "=", "$", "!", "|", "]", "}", ")", "?", "*", "+", ".", ">");
+    }
 
     private static final Logger LOGGER = LoggerFactory.getLogger( BasicTokeniser.class );
-
+    
+    private final Pattern separatorPattern;
+    
     /**
      * Creates an instance using a set of dictionaries and a set of 
      * separator characters.
@@ -57,30 +64,28 @@ class BasicTokeniser {
      */
     BasicTokeniser ( DictionarySet dictionarySet, String separatorCharacters ) {
         this.words = new ArrayList<>();
-        this.needsOracle = false;
-        this.boundaries = new ArrayList<>();
         this.aggregatedDictionary = dictionarySet.getAggregatedDictionary();
         this.numericTokeniser = new NumericTokeniser( dictionarySet );
         this.digitAbbreviationDictionary = dictionarySet.getDigitAbbreviationDictionary();
         this.abbreviationDicitonary = dictionarySet.getAbbreviationDictionary();
 
         this.separatorCharactersSet = new HashSet<>();
-        for ( Integer index = 0; index < separatorCharacters.length(); index++ ) {
-            separatorCharactersSet.add( separatorCharacters.codePointAt( index ) );
+        List<String> chars = new ArrayList<>();
+        if ( separatorCharacters.isEmpty() ) {
+            separatorCharacters = "_$";  // default to Java
         }
+        for ( Integer index = 0; index < separatorCharacters.length(); index++ ) {
+            String character = separatorCharacters.substring(index, index+1);
+            if ( escapableCharacters.contains(character) ) {
+                separatorCharactersSet.add(String.format("\\%s", character));
+            }
+            else {
+                separatorCharactersSet.add( character );
+            }
+        }
+        this.separatorPattern = Pattern.compile(separatorCharactersSet.stream().collect(Collectors.joining("", "[", "]+")));
     }
 
-    // retain case is currently redundant as case is retained.
-    // left in in case behaviour is modified later
-    // indicated as deprecated for the moment
-    @Deprecated
-    List<String> naiveTokensationRetainCase ( String identifierName ) {
-        List<String> tokens = tokeniseOnSeparators( identifierName );
-
-        List<String> naiveTokens = tokeniseOnLowercaseToUppercase( tokens );
-
-        return naiveTokens;
-    }
 
     /**
      * Undertakes conservative tokenisation of a string.
@@ -96,7 +101,7 @@ class BasicTokeniser {
     }
 
     /**
-     * Tokenises a name aggresively according to the library configuration.
+     * Tokenises a name aggressively according to the library configuration.
      * @param identifierName a name to tokenise
      * @return a list of tokens
      */
@@ -118,177 +123,9 @@ class BasicTokeniser {
         return tokens;
     }
 
-    // ----------- helpers -------------
-    // now for the code that does the real work
-    @Deprecated
-    private void findBoundaries ( String identifierName ) {
-        Integer currentChar;
-        Boolean inPrefix = true;
 
-        // now process the array looking for boundaries
-        for ( Integer index = 0; index < identifierName.length(); index++ ) {
-            currentChar = identifierName.codePointAt( index );
-
-            if ( isSeparator( currentChar ) ) {
-                // we have a character that
-                //  (a) can be tossed
-                //  (b) may have a boundary both before and after
-                if ( inPrefix == false ) {
-                    // when not in the prefix, we are one beyond the end
-                    // of the previous component (mostly). So need to ensure
-                    // that we're not in the middle of a series
-                    // of separators
-                    if ( index > 0 && !isSeparator( identifierName.codePointAt( index - 1 ) ) ) {
-                        // (U|L|D)+S boundary
-                        this.boundaries.add( index - 1 );
-                        // NB: this also records the final char of an identifer
-                        // with trailing underscores
-                    }
-                }
-
-            }
-            else if ( inPrefix == true ) {
-                // we have the first character of the initial token of the
-                // identifier
-                inPrefix = false;
-                this.boundaries.add( index );
-                // now we need to add an additional check to account for
-                // single character identifiers, whether they have prefixes
-                // or not e.g. z and _z and $z
-                if ( index == ( identifierName.length() - 1 ) ) {
-                    boundaries.add( index );
-                }
-            }
-            else {
-                // now to worry about other boundaries
-                // S+ -> (U|L|D)
-                // D+ -> S // not dealt with explicitly, but may have value to signal a conventional break
-                // L+ -> U+
-                // UL and U+UL
-                // optimised for most likely characters to reduce number
-                // of tests at run time
-                if ( Character.isLowerCase( currentChar ) ) {
-                    if ( Character.isUpperCase( identifierName.codePointAt( index - 1 ) )
-                            && index > 2
-                            && Character.isUpperCase( identifierName.codePointAt( index - 2 ) ) ) {
-                        // U+UL
-                        this.boundaries.add( index - 2 );  // end on final char of U+
-                        this.boundaries.add( index - 1 );  // begin on U
-                    }
-                    else if ( isSeparator( identifierName.codePointAt( index - 1 ) ) ) {
-                        // SL boundary
-                        this.boundaries.add( index );
-                    }
-                }
-                else if ( Character.isUpperCase( currentChar ) ) {
-                    if ( Character.isLowerCase( identifierName.codePointAt( index - 1 ) ) ) {
-                        // LU
-                        this.boundaries.add( index - 1 ); // end on L
-                        this.boundaries.add( index ); // begin on U
-                    }
-                    else if ( isSeparator( identifierName.codePointAt( index - 1 ) ) ) {
-                        // SU boundary
-                        this.boundaries.add( index );
-                    }
-                }
-                else if ( Character.isDigit( currentChar ) ) {
-                    // D - so we need to refer to the oracle
-                    // but mark an SD border if that is the case
-                    if ( isSeparator( identifierName.codePointAt( index - 1 ) ) ) {
-                        this.boundaries.add( index );
-                    }
-
-                }
-                else {
-                    // here we have other unicode characters in
-                    // classes that we don't know how to handle
-                    // e.g. other currency symbols, and connecting
-                    // punctuation.
-                    // So report this?
-                    LOGGER.warn(
-                            "Unexpected unicode character in: \"{}\"",
-                            identifierName );
-                }
-
-                // now check whether this is the terminal character.
-                // and record it to give us the final boundary
-                if ( index == identifierName.length() - 1 ) {
-                    this.boundaries.add( index );
-                }
-            }
-
-        }
-
-    }
-
-    /**
-     * Determines if the code point passed in is one of the string of separator
-     * characters set in the constructor.
-     *
-     * @param codePoint a unicode code point.
-     * @return true if the code point is part of the specified set of separator characters.
-     *
-     */
-    private Boolean isSeparator ( Integer codePoint ) {
-        return this.separatorCharactersSet.contains( codePoint );
-    }
-
-    private ArrayList<String> tokeniseOnSeparators ( String identifierName ) {
-        ArrayList<String> splits = new ArrayList<>();
-
-        ArrayList<Integer> candidateBoundaries = new ArrayList<>();
-
-        Integer currentChar;
-
-        // now process the string looking for boundaries
-        for ( Integer index = 0; index < identifierName.length(); index++ ) {
-            currentChar = identifierName.codePointAt( index );
-
-            if ( isSeparator( currentChar ) ) {
-                // we have a character that
-                //  (a) can be tossed; and
-                //  (b) may have a boundary both before and after
-                // so, boundary before
-                if ( index > 0
-                        && !isSeparator( identifierName.codePointAt( index - 1 ) ) ) {
-                    // (U|L|D)+S boundary
-                    candidateBoundaries.add( index - 1 );
-                    // NB: this also records the final char of an identifer
-                    // with trailing underscores
-                }
-
-                // and boundary after
-                // now to mark the separator to any character transition
-                // using lookahead
-                if ( index < ( identifierName.length() - 1 )
-                        && !isSeparator( identifierName.codePointAt( index + 1 ) ) ) {
-                    candidateBoundaries.add( index + 1 );
-                }
-            }
-            else {
-                if ( index == 0 ) {
-                    candidateBoundaries.add( index );
-                }
-
-                // now check whether this is the terminal character.
-                // and record it to give us the final boundary
-                if ( index == identifierName.length() - 1 ) {
-                    candidateBoundaries.add( index );
-                }
-            }
-        }
-
-        if ( candidateBoundaries.size() % 2 == 1 ) {
-            LOGGER.warn(
-                    "Odd number of boundaries found for: \"{}\"",
-                    identifierName );
-        }
-
-        for ( int i = 0; i < candidateBoundaries.size(); i += 2 ) {
-            splits.add(
-                    identifierName.substring( candidateBoundaries.get( i ),
-                            candidateBoundaries.get( i + 1 ) + 1 ) );
-        }
+    private List<String> tokeniseOnSeparators( String name ) {
+        List<String> splits = this.separatorPattern.splitAsStream(name).collect(Collectors.toList());
 
         return splits;
     }
@@ -332,9 +169,9 @@ class BasicTokeniser {
 
         for ( int i = 0; i < candidateBoundaries.size(); i += 2 ) {
             splits.add( identifierName.substring( candidateBoundaries.get( i ), candidateBoundaries.get( i + 1 ) + 1 ) );
-//        // DEBUG
-//            System.out.println(boundaries.get(i) + " -> " + boundaries.get(i+1));
-//        // DEBUG
+        // DEBUG
+ //           System.out.println(boundaries.get(i) + " -> " + boundaries.get(i+1));
+        // DEBUG
         }
 
         return splits;
