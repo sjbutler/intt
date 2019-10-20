@@ -67,4 +67,13 @@ public class SeparatorsTest {
                 tokens, 
                 hasSize(7));
     }
+    
+    @Test
+    public void taggedTokenTest() {
+        List<TaggedToken> taggedTokens = inttCobol.tokeniseWithOrigins( "some-really-long-cobol-like-name" );
+        assertThat(String.format("Expected six tokens. Found: %s", 
+                taggedTokens.stream().map(tt->tt.getContent()).collect(Collectors.joining(", ", "\"", "\"")) ), 
+                taggedTokens, 
+                hasSize(6));
+    }
 }
