@@ -23,6 +23,7 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import org.junit.Ignore;
+import java.util.stream.Collectors;
 
 /**
  * Simple tests of the fundamental functionality of {@code BasicTokeniser}. 
@@ -65,7 +66,11 @@ public class BasicTokeniserTest {
 
         List<String> tokens = tokeniser.tokenise(test);
 
-	assertThat("Only one token expected", tokens.size(), is(1) );
+	assertThat(String.format("Only one token expected, but found %d tokens - %s",
+				 tokens.size(),
+				 tokens.stream().collect(Collectors.joining(", ", "[", "]")) ),
+		   tokens.size(),
+		   is(1) );
         assertThat("Failed to strip leading \'$\'", tokens.get(0), is(equalTo("test")));
 
         test = "$$test";
