@@ -11,8 +11,8 @@ intt is Copyright (C) 2010-2015 The Open University with improvements
 Copyright (C) 2017-2019 Simon Butler (see the History section below for more detail). intt is released under the terms of 
 the Apache Licence v2.
 
-intt v0.8.8 is available from Maven central. Gradle users should use 
-the line `compile 'uk.org.facetus:intt:0.8.8'
+intt v0.8.10 is available from Maven central. Gradle users should use 
+the line `compile 'uk.org.facetus:intt:0.8.10'
 
 ** Requirements
 *** Java
