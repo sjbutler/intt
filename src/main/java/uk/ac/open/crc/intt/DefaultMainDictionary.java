@@ -1,6 +1,6 @@
 /*
  Copyright (C) 2010-2015 The Open University
- Copyright (C) 2017-2019 Simon Butler
+ Copyright (C) 2017-2020 Simon Butler
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@ import java.util.HashSet;
 import java.util.List;
 import uk.ac.open.crc.intt.text.WordList;
 
-import uk.ac.open.crc.mdsc.wordlists.Wordlist;
-import uk.ac.open.crc.mdsc.wordlists.Wordlists;
+import nu.floss.wordlists.Wordlist;
+import nu.floss.wordlists.Wordlists;
 
 /**
  * Provides a main dictionary for the default configuration.

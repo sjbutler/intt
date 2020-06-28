@@ -12,6 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
  */
 package uk.ac.open.crc.intt;
 
@@ -21,8 +23,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import uk.ac.open.crc.intt.text.WordList;
-import uk.ac.open.crc.mdsc.wordlists.Wordlist;
-import uk.ac.open.crc.mdsc.wordlists.Wordlists;
+import nu.floss.wordlists.Wordlist;
+import nu.floss.wordlists.Wordlists;
 
 /**
  * A dictionary including English (CA; UK and US variants) and German words. 

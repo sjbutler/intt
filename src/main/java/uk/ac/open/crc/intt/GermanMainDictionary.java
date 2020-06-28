@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import uk.ac.open.crc.intt.text.WordList;
-import uk.ac.open.crc.mdsc.wordlists.Wordlist;
-import uk.ac.open.crc.mdsc.wordlists.Wordlists;
+import nu.floss.wordlists.Wordlist;
+import nu.floss.wordlists.Wordlists;
 
 /**
  * A class providing a default German language dictionary

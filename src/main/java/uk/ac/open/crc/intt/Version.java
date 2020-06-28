@@ -25,7 +25,7 @@ final class Version {
     private static final String NAME = "intt";
     private static final String MAJOR = "0";
     private static final String MINOR = "8";
-    private static final String PATCH_LEVEL = "8-dev";
+    private static final String PATCH_LEVEL = "11";
     
     static String getNameAndVersion() {
         return String.format( "%s %s", getName(), getVersion() );
